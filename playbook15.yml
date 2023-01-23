@@ -1,0 +1,23 @@
+---
+- name: implementing tags
+  hosts: all
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: installing tree
+      apt: 
+        name: tree
+        state: present
+        update_cache: yes
+      tags: tree_installation
+    - name: create user
+      user: 
+        name: chaitu
+        password: intelliq
+      tags: user_creation
+    - name: copy the passwd file
+      copy: 
+        src: /etc/passwd
+        dest: /tmp       
+         
+...

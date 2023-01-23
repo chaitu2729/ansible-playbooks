@@ -1,0 +1,11 @@
+---
+- name: install firewall using host scope varibles
+  hosts: webserver
+  tasks:
+    - name: install firewll
+      apt: 
+       name: "{{a}}"
+       state: "{{b}}"
+       update_cache: "{{c}}"
+...         
+

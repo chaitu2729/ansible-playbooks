@@ -1,12 +1,12 @@
 --- 
 - name: creating  user 
-  hosts: all 
+  hosts: servers 
   tasks:
     - name: creation of user 
       user: 
         name: chaitanya 
         password: intelliq
-        uid: 1001
+        uid: 1007
         comment: "a regular user"
         home: /home/chaitanya
         shell: /bin/bash

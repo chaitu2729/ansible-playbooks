@@ -1,29 +1,30 @@
 ---
 - name: install apache2
-  hosts: all 
-  tasks: 
+  hosts: all
+  tasks:
     - name: install apache2
       apt:
         name: apache2
         state: present
         update_cache: yes
     - name: edit the index.html file
-      copy: 
+      copy:
        content: "welcome to ammerpet"
        dest: /var/www/html/index.html
     - name: restart apache2
       service:
-        name: apache2 
+        name: apache2
         state: restarted
-    - name: check apache2 response on server1
+    - name: check apache2 response on all servers
       uri:
-        url: http://172.31.27.187
+        url: "{{item}}"
         status_code: 200
-    - name:  check apache2 response on server2
-      uri: 
-       url: http://172.31.1.12
-       status_code: 200
+      with_items:  
+          - http://172.31.1.12
+          - http://172.31.27.187
 
-...         
-      
+
+...
+
+
 

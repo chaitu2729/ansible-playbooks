@@ -1,0 +1,37 @@
+---
+- name: configuring apache2
+  hosts: all
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: install apache2
+      apt: 
+        name: apache2
+        state: present
+        update_cache: yes
+      notify: check url response    
+    - name: edit the index.html file
+      copy:
+        content: "welcome to devops session" 
+        dest: /var/www/html/index.html
+      notify: restart apache2
+  handlers: 
+    - name: restart apache2
+      service: 
+          name: apache2 
+          state: restarted
+    - name: check url response
+      uri: 
+        url: "{{item}}"
+        status_code: 200
+      with_items: 
+             http://172.31.1.12
+             http://172.31.27.187   
+
+
+
+
+
+
+
+

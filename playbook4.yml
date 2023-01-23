@@ -11,6 +11,7 @@
       apt: 
         name: tomcat9-admin
         state: present
+        update_cache: no
     - name: copy tomcat-users.xml file
       copy:
        src: tomcat-users.xml  
@@ -33,7 +34,7 @@
         status_code: 200
     - name: check tomcat9 respond on  server2 
       uri:
-        url: http://172.31.14.130:9090 
+        url: http://172.31.27.187:9090 
         status_code: 200
 
 
