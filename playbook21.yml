@@ -1,0 +1,15 @@
+---
+- name: implemening when conditons
+  hosts: all
+  vars:
+    - a: 10
+  tasks:
+    - name: insatll tree
+      apt:
+        name: tree
+        state: present
+        update_cache: no  
+      when: a == 20
+
+
+         
