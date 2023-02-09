@@ -1,0 +1,39 @@
+---
+- name: configure apache2 und httpd using bassed on os
+  hosts: all
+  tasks:
+    - name: install apache2 using apt module
+      apt:
+         name: apache2
+         state: present
+         update_cache: yes
+      when: ansible_distribution == "Ubuntu"    
+    - name: install httpd using yum module
+      yum: 
+         name: httpd
+         state: present
+         update_cache: yes
+      when: ansible_distribution == "RedHat"
+    - name: edit the index.html file
+      copy:
+         content: "welcome to ameerpet"
+         dest: /var/www/html/index.html
+    - name: restart  apache2 on ubuntu
+      service: 
+         name: apache2
+         state: restarted
+      when: ansible_distribution == "Ubuntu"
+    - name: restart apache2 on RedHat 
+      service:
+         name: httpd
+         state: restarted
+      when: ansible_distribution == "RedHat"
+    - name: check apache2 or httpd url response
+      uri:
+         url: "{{item}}"
+         status_code: 200    
+      with_items:
+         - http://172.31.1.12
+         - http://172.31.29.223
+
+

@@ -1,0 +1,27 @@
+---
+- name: create jenkins and tomcat containers
+  hosts: all
+  tasks:
+    - name: create jenkins container
+      docker_container:
+          name: myjenkins
+          image: jenkins/jenkins
+          ports:
+            - 5050:8080
+    - name: create tomcat container
+      docker_container:
+          name: qaserver
+          image: tomee
+          ports:
+            - 6060:8080
+          links:
+            - myjenkins:jenkins
+    - name: create tomcat container
+      docker_container:
+          name: prodserver
+          image: tomee
+          ports: 
+            - 7070:8080
+          links:
+            - myjenkins:jenkins
+

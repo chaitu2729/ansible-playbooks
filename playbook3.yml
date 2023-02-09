@@ -1,6 +1,7 @@
 ---
 - name: install apache2
   hosts: all 
+  serial: 1
   tasks: 
     - name: install apache2
       apt:
@@ -17,11 +18,11 @@
         state: restarted
     - name: check apache2 response on server1
       uri:
-        url: http://172.31.27.187
+        url: http://172.31.1.12
         status_code: 200
     - name:  check apache2 response on server2
       uri: 
-       url: http://172.31.1.12
+       url: http://172.31.18.254
        status_code: 200
 
 ...         

@@ -4,3 +4,4 @@
     content: "welcome to devops training"
     dest: /var/www/html/index.html
 
+...
